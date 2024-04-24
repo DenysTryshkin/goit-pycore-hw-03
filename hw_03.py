@@ -59,11 +59,14 @@ def normalize_phone(phone_number):
     # We remove all characters from the phone number except
     # digits and the "+" sign.
     sanitized_number = re.sub(r"[^\d+]", "", phone_number)
-    # If the number does not start with "+", we add "+38" to it.
     if not sanitized_number.startswith("+"):
-        sanitized_number = "+38" + sanitized_number
+        if sanitized_number.startswith("380"):
+            sanitized_number = "+" + sanitized_number
+        else:
+            sanitized_number = "+38" + sanitized_number
         # We return the normalized phone number.
     return sanitized_number
+    
     
 raw_numbers = [
     "067\\t123 4567",
